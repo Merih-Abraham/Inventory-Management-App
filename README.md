@@ -13,3 +13,10 @@ This repository contains the source code and documentation for an Inventory Mana
 ## Author
 
 - [Author's GitHub Profile](https://github.com/Merih-Abraham)
+
+
+
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.txt).
