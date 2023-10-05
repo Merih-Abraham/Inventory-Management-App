@@ -1,6 +1,6 @@
 # Inventory-Management-App
 
-This repository contains the source code and documentation for an Inventory Management App. The app is designed to manage warehouse inventory, track orders, and maintain user roles and permissions. 
+This repository contains the source code and documentation for an Inventory Management App. The app is designed to manage warehouse inventory, track orders, and maintain user roles and permissions.
 
 ## Features
 
@@ -13,9 +13,6 @@ This repository contains the source code and documentation for an Inventory Mana
 ## Author
 
 - [Author's GitHub Profile](https://github.com/Merih-Abraham)
-
-
-
 
 ## License
 
