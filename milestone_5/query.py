@@ -6,10 +6,11 @@ username=input("Please enter the username: ")
 # Greet the user
 print(f"Hello {username}, Welcome to the warehouse website")
 # Show the menu and ask to pick a choice
+
 print("The following is the menu please choose the specific numeric associated with the choice. ")
 print("1. List items by warehouse","2. Search an item and place an order","3. Browse by category","4. Quit", sep="\n")
 menu_selection = input("Please type the number associated with the operation: ")
-    
+
 # If they pick 1
 if menu_selection == "1":
     items_in_warehouse1=[]
@@ -20,6 +21,7 @@ if menu_selection == "1":
             items_in_warehouse1.append(item_full_name)
         else:
             items_in_warehouse2.append(item_full_name)
+
     print(f"Items in warehouse 1: {items_in_warehouse1}")
     print(f"Total items in Warehouse 1 is {len(items_in_warehouse1)}")
     print()
@@ -29,7 +31,6 @@ if menu_selection == "1":
 
 # Else, if they pick 2
 elif menu_selection=="2":
-    pass
     search_item=input("Enter the item that you are searching:").lower()
     search_item_state=" ".join(search_item.split(" ")[:-1]).capitalize()
     search_item_category= search_item.split()[-1].capitalize()
@@ -70,7 +71,7 @@ elif menu_selection=="2":
                     print(f"Order placed: {item_count_in_warehouse1+item_count_in_warehouse2} * {search_item}.")
     else:
         print("Not in stock")
-    
+
 elif menu_selection == "3":
     list_item_category=[]
     for item in stock:
@@ -85,6 +86,7 @@ elif menu_selection == "3":
             for item in stock:
                 if key==item["category"]:
                     print(f"{item['state']} {item['category']}, Warehouse {item['warehouse']}")
+
 # Else, if they pick 3
 elif menu_selection == "4":
         pass
