@@ -1,6 +1,7 @@
-from data import stock, personnel
-from datetime import datetime
 from collections import defaultdict
+from datetime import datetime
+
+from data import personnel, stock
 
 
 def get_user_name():

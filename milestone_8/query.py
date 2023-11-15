@@ -8,7 +8,6 @@ import colors
 personnel=Loader(model="personnel") # list of Employees objects
 stock=Loader(model="stock") # list of Warehouse objects
 
-# print(personnel, stock, sep=" , ")
 
 # for warehouse in stock:
 #     # print(warehouse)
@@ -43,7 +42,7 @@ def user_authentication(user_name):
         print(f"{'-'*150}")
         user.greet()
         return user
-    #employee mode
+    # #employee mode
     elif entry_mode=="2":
         password=input(f"Please enter your password: {colors.ANSI_YELLOW}")
         authorised_employee=validate_user(personnel,password,user_name)
@@ -73,14 +72,37 @@ def placing_order(search_item,total_item_count_in_Warehouses):
             print(f"\n{' '*50}{colors.ANSI_GREEN}Order placed: {total_item_count_in_Warehouses} * {search_item}{colors.ANSI_RESET}\n")
             print(f"{'%'*150}")
 
+
+
+def search_and_order_item():
+        search_item=input(f"\n{colors.ANSI_RESET}Enter the item that you are searching: {colors.ANSI_YELLOW}").lower()
+        location=[]
+        item_count_in_warehouse_dict={}
+        for warehouse in stock:
+            search_result=warehouse.search(search_item)
+            for i in search_result:
+                date_str = i[1]
+                date_format = '%Y-%m-%d %H:%M:%S'
+                days=(datetime.now()-datetime.strptime(date_str, date_format)).days
+                location.append(f"{str(warehouse)} (in stock for {days} days)") 
+                if str(warehouse) in item_count_in_warehouse_dict:
+                    item_count_in_warehouse_dict[str(warehouse)]+=1
+                else:
+                    item_count_in_warehouse_dict[str(warehouse)]=1
+
+        return location, item_count_in_warehouse_dict, search_item
+
+
+
+
+
 def search_n_order(actions,authorized_employee):
-    search_warehouse=Warehouse()
-    location, item_count_in_warehouse_dict, search_item=search_warehouse.search_and_order_item()
+    location, item_count_in_warehouse_dict, search_item = search_and_order_item()
     if len(location)>0:
         print(f"\n{colors.ANSI_RESET}Quantity Availability: {len(location)}\n")
         print("Location:")
         for i in location:
-            print(f"{' '*15}{colors.ANSI_PURPLE}{i}{colors.ANSI_RESET}")
+            print(f"{' ' * 15}{colors.ANSI_PURPLE}{i}{colors.ANSI_RESET}")
         for warehouse,count in item_count_in_warehouse_dict.items():
             if max(item_count_in_warehouse_dict.values())==count:                      
                 print(f"\nMaximum availability: {colors.ANSI_BLUE}{count} in {warehouse}{colors.ANSI_RESET}\n")
@@ -95,9 +117,9 @@ def search_n_order(actions,authorized_employee):
         print(f"{colors.ANSI_RED}\nNot in stock")
 
     actions.append(f"Searched for {search_item}")
-    continue_session = input(f"\n{'*'*20}  {colors.ANSI_PURPLE}Do you want to continue with another operation? (y/n){colors.ANSI_RESET}  {'*'*20}   -   {colors.ANSI_YELLOW}")
+    continue_session = input(f"\n{'*' * 20}  {colors.ANSI_PURPLE}Do you want to continue with another operation? (y/n){colors.ANSI_RESET}  {'*' * 20}   -   {colors.ANSI_YELLOW}")
     if continue_session in ("y","Y"):
-        select_operation(actions, authorized_employee)
+        run(actions, authorized_employee)
 
 
 def category_selection(actions, authorized_employee):
@@ -114,36 +136,61 @@ def category_selection(actions, authorized_employee):
                 for item in warehouse.stock:
                     if value_id==item.category:
                         count_items_by_category+=1
-                        print(f"{' '*25}{colors.ANSI_GREEN}{item.state} {item.category}, {warehouse}")
+                        print(f"{' ' * 25}{colors.ANSI_GREEN}{item.state} {item.category}, {warehouse}")
     if int(select_category) not in dict_id_category.keys():
         print(f"{colors.ANSI_RED}Invalid input !{colors.ANSI_RESET}")
     if not category_name==None:
-        print(f"{colors.ANSI_RESET}{'.'*120}")
+        print(f"{colors.ANSI_RESET}{'.' * 120}")
         print(f"\nTotal items in this category are: {count_items_by_category}\n")
         print("."*120)
         actions.append(f"Browsed the category {category_name}")
-    continue_session = input(f"\n{'*'*20}  {colors.ANSI_PURPLE}Do you want to continue with another operation? (y/n){colors.ANSI_RESET}  {'*'*20}   -   {colors.ANSI_YELLOW}")
+    continue_session = input(f"\n{'*' * 20}  {colors.ANSI_PURPLE}Do you want to continue with another operation? (y/n){colors.ANSI_RESET}  {'*' * 20}   -   {colors.ANSI_YELLOW}")
     if continue_session in ("y", "Y"):
-        select_operation(actions,authorized_employee)
+        run(actions, authorized_employee)
 
 
-
-def select_operation(actions, authorized_employee): 
-    print(f"{colors.ANSI_RESET}\n{'-'*150}")
+def select_operation(): 
+    print(f"{colors.ANSI_RESET}\n{'-' * 150}")
     print(f"{colors.ANSI_RESET}The following is the menu please choose the specific numeric associated with the choice. ")
-    print(f"{' '*25}1. List items by warehouse\n{' '*25}2. Search an item and place an order\n{' '*25}3. Browse by category\n{' '*25}4. Quit")
-    print("-"*150)
+    print(f"{' ' * 25}1. List items by warehouse")
+    print(f"{' ' * 25}2. Search an item and place an order")
+    print(f"{' ' *  25}3. Browse by category")
+    print(f"{' ' *  25}4. Quit")
+    print('- ' * 150)
     menu_selection = input(f"\nPlease type the number associated with the operation:  {colors.ANSI_YELLOW}")
-    
+    return menu_selection
+
+
+
+def item_list_by_wearhouse():
+        
+    new_item_dict={}
+    for i in stock.objects:
+        if i not in new_item_dict:
+            new_item_dict[i]=[]
+            for j in i.stock:
+                new_item_dict[i].append(str(j))
+
+    for i in new_item_dict.keys():
+        total_items_in_warehouse=[str(item) for item in new_item_dict[i]]
+        print(f"{colors.ANSI_RED}Items in Warehouse {i}: {colors.ANSI_RESET}")
+        for i in total_items_in_warehouse: 
+            print(i)
+        print(f"{colors.ANSI_GREEN}Total items in {i}: {len(total_items_in_warehouse)} {colors.ANSI_RESET} ")
+        print(f"{'-'*100}")
+    return new_item_dict
+
+def run(actions, authorized_employee=None):
+    menu_selection=select_operation()
     # If user selects operation 1
     if menu_selection == "1":
-        new_item_dict=Item.item_list_by_wearhouse()
+        new_item_dict=item_list_by_wearhouse()
         total_items=sum(len(i) for i in new_item_dict.values())
         actions.append(f"listed {total_items} items from {len(new_item_dict.keys())} Warehouses")
     # actions.append("Hi")
-        continue_session = input(f"\n{'*'*20}  {colors.ANSI_PURPLE}Do you want to continue with another operation? (y/n){colors.ANSI_RESET}  {'*'*20}   -   {colors.ANSI_YELLOW}")
+        continue_session = input(f"\n{{{'-'*20}}}  {colors.ANSI_PURPLE}Do you want to continue with another operation? (y/n){colors.ANSI_RESET}  {{{'-'*20}}}   -   {colors.ANSI_YELLOW}")
         if continue_session == "y" or continue_session=="Y":
-            select_operation(actions, authorized_employee)
+            run(actions, authorized_employee)
 
     # Else, if they pick 2
     elif menu_selection=="2":
@@ -167,10 +214,10 @@ def start_shopping():
     actions=[]
     username=get_user_name()
     authorised_employee=user_authentication(username) # this can be either user object or employee object depending on the entry mode
-    select_operation(actions, authorised_employee)
+    run(actions, authorised_employee)
     print()
     if isinstance(authorised_employee, User):
         authorised_employee.bye(actions)
     else:
         authorised_employee.bye(actions)
-start_shopping()
+# start_shopping()
