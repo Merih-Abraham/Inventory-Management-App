@@ -1,0 +1,17 @@
+User : Mario
+listed 5000 items from 4 Warehouses.  ---------- 2023-11-20 15:57:04.082825 
+
+User : Abraham
+listed 5000 items from 4 Warehouses.  ---------- 2023-11-20 15:57:29.167912 
+Browsed the category Microphone.  ---------- 2023-11-20 15:57:34.547528 
+Browsed the category Keyboard.  ---------- 2023-11-20 15:57:40.297857 
+
+User : Rihanna
+listed 5000 items from 4 Warehouses.  ---------- 2023-11-20 18:10:21.777937 
+Searched for black smartphone.   ---------- 2023-11-20 18:10:37.493618 
+Browsed the category Game console.  ---------- 2023-11-20 18:10:57.323633 
+Searched for green television.   ---------- 2023-11-20 18:11:13.928599 
+User : Leyla
+
+User : Merih
+Searched for red smartphone.   ---------- 2023-11-28 15:09:06.381115 

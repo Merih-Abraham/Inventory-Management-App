@@ -1,0 +1,17 @@
+Employee : Lidia
+listed 5000 items from 4 Warehouses.  ---------- 2023-11-20 18:05:15.643354 
+Searched for blue smartwatch.   ---------- 2023-11-20 18:05:41.525227 
+Searched for blue smartwatch.   ---------- 2023-11-20 18:06:08.675832 
+Browsed the category Laptop.  ---------- 2023-11-20 18:06:47.746953 
+
+Employee : Tom
+Browsed the category Tablet.  ---------- 2023-11-20 18:07:51.289661 
+Searched for brand new tablet.   ---------- 2023-11-20 18:08:15.640134 
+listed 4991 items from 4 Warehouses.  ---------- 2023-11-20 18:08:21.844166 
+Searched for black monitor.   ---------- 2023-11-20 18:09:14.251905 
+Searched for black monitor.   ---------- 2023-11-20 18:09:33.328071 
+Browsed the category Keyboard.  ---------- 2023-11-20 18:09:39.928580 
+
+
+Employee : Jeremy
+Searched for red smartphone.   ---------- 2023-11-30 13:40:52.479870 
